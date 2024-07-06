@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
+        "https://medium-backendd.vercel.app/api/v1/user/login",
         {
           email,
           password,
@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/register",
+        "https://medium-backendd.vercel.app/api/v1/user/register",
         {
           name,
           email,
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
 
   const fetchUser = async (token) => {
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/user/profile", {
+      const response = await axios.get("https://medium-backendd.vercel.app/api/v1/user/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
