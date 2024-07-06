@@ -14,7 +14,7 @@ export const PostProvider = ({ children }) => {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(
-        "https://medium-backendd.vercel.app/api/v1/post/get-posts"
+        "https://medium-server-eight.vercel.app/api/v1/post/get-posts"
       );
       setPosts(response.data.posts);
     } catch (err) {
