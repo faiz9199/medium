@@ -5,10 +5,6 @@ const PORT = process.env.PORT || 3000;
 const path = require('path')
 
 app.use(cors());
-const corsOptions = {
-  origin: 'https://medium-server-55xupovgx-faiz9199s-projects.vercel.app/',
-};
-app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
