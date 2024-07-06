@@ -6,7 +6,7 @@ const path = require('path')
 
 app.use(cors());
 const corsOptions = {
-  origin: 'https://medium-server-two.vercel.app', // Specify the allowed origin
+  origin: 'https://medium-server-55xupovgx-faiz9199s-projects.vercel.app/', // Specify the allowed origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204
