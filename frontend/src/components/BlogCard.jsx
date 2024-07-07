@@ -6,6 +6,15 @@ const BlogCard = ({ post }) => {
     ? `http://localhost:3000/${post.imagelink}`
     : "https://via.placeholder.com/150";
 
+  // Function to truncate the content to 20 words
+  const truncateContent = (content, wordLimit) => {
+    const words = content.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return content;
+  };
+
   return (
     <div className="mt-20 flex justify-center">
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
@@ -26,7 +35,7 @@ const BlogCard = ({ post }) => {
               {post.title}
             </h1>
             <p className="text-gray-700 text-base sm:text-lg md:text-xl">
-              {post.content}
+              {truncateContent(post.content, 16)}
             </p>
           </div>
           <div className="ml-6 flex-shrink-0">

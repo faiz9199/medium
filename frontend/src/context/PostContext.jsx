@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import BASE_URL from "./apiConfig";
 import axios from "axios";
 
 // Create the context
@@ -13,9 +14,7 @@ export const PostProvider = ({ children }) => {
   // Fetch posts from the API
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(
-        "https://medium-server-eight.vercel.app/api/v1/post/get-posts"
-      );
+      const response = await axios.get(`${BASE_URL}/post/get-posts`);
       setPosts(response.data.posts);
     } catch (err) {
       setError(err);
@@ -26,7 +25,7 @@ export const PostProvider = ({ children }) => {
 
   // Add a new post
   const addPost = (newPost) => {
-    setPosts((prevPosts) => [newPost, ...prevPosts, newPost]);
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
   };
 
   useEffect(() => {

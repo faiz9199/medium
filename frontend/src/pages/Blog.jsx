@@ -1,19 +1,21 @@
+import React, { useContext } from "react";
 import BlogCard from "../components/BlogCard";
 import { PostContext } from "../context/PostContext";
-import { useContext } from "react";
+import Loading from "../components/Loading";
 
 const Blog = () => {
   const { posts, loading, error } = useContext(PostContext);
+
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {
-    return <p>Error fetching posts: {error.message}</p>;
+    return <p className="text-center text-red-500">Error fetching posts: {error.message}</p>;
   }
 
   return (
-    <div>
+    <div className="mt-10">
       {posts.map((post) => (
         <BlogCard key={post.id} post={post} />
       ))}

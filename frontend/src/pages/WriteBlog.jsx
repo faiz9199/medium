@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import BASE_URL from "../context/apiConfig";
 import axios from "axios";
 import { PostContext } from "../context/PostContext"; // Adjust the path as necessary
 
-const WriteBlog = () => {
+const WriteBlog = ({ placeholder }) => {
   const navigate = useNavigate();
   const { addPost } = useContext(PostContext);
   const [title, setTitle] = useState("");
@@ -25,7 +24,7 @@ const WriteBlog = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/post/create-post",
+        `${BASE_URL}/post/create-post`,
         formData,
         {
           headers: {
@@ -61,7 +60,7 @@ const WriteBlog = () => {
           />
           <button
             onClick={handleSubmit}
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ml-2 hover:border-black hover:bg-black hover:text-white text-black border-2 border-black bg-white"
+            className="inline-flex items-center text-white bg-black justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ml-2 hover:border-black hover:bg-black hover:text-white text-black border-2 border-black"
           >
             Publish
           </button>
@@ -72,25 +71,23 @@ const WriteBlog = () => {
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
             type="file"
           />
-          <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground h-10 px-4 py-2 ml-2 w-[120px] hover:text-black hover:border-black border-2 border-black hover:bg-white">
-            Upload Picture
-          </button>
         </div>
         {file && (
-          <div className="w-full my-2">
+          <div className="w-full flex justify-center my-2">
             <img
               src={URL.createObjectURL(file)}
               alt="Uploaded"
-              className="w-full h-auto"
+              className="w-2/4 h-auto"
             />
           </div>
         )}
         <div className="w-full">
-          <ReactQuill
+          <textarea
+            name="content"
             value={content}
-            onChange={setContent}
-            className="w-full h-[300px] mb-[20px]"
-            theme="snow"
+            onChange={(e) => setContent(e.target.value)}
+            className="w-full h-[300px] mb-[20px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder={placeholder}
           />
         </div>
       </div>

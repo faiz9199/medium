@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import BASE_URL from "./apiConfig";
 import axios from "axios";
 
 const AuthContext = createContext();
@@ -6,6 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Check for token in localStorage on initial render
   useEffect(() => {
@@ -14,17 +16,14 @@ const AuthProvider = ({ children }) => {
       setLoggedIn(true);
       fetchUser(token); // Fetch the logged-in user's information
     }
-  }, []);
+  }, [loggedIn]);
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(
-        "https://medium-backendd.vercel.app/api/v1/user/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/user/login`, {
+        email,
+        password,
+      });
       const token = response.data.token;
       localStorage.setItem("token", token);
       setLoggedIn(true);
@@ -36,14 +35,11 @@ const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const response = await axios.post(
-        "https://medium-backendd.vercel.app/api/v1/user/register",
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/user/register`, {
+        name,
+        email,
+        password,
+      });
       const token = response.data.token;
       localStorage.setItem("token", token);
       setLoggedIn(true);
@@ -61,7 +57,7 @@ const AuthProvider = ({ children }) => {
 
   const fetchUser = async (token) => {
     try {
-      const response = await axios.get("https://medium-backendd.vercel.app/api/v1/user/profile", {
+      const response = await axios.get(`${BASE_URL}/user/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +69,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, user, login, logout, register }}>
+    <AuthContext.Provider value={{ loggedIn, user, login, logout, register, loading }}>
       {children}
     </AuthContext.Provider>
   );

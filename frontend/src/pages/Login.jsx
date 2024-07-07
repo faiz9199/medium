@@ -2,9 +2,10 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Quote from "../components/Quote";
+import Loading from "../components/Loading"
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login, loading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
@@ -13,6 +14,10 @@ const Login = () => {
     login(email, password);
     navigate('/blog')
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex h-screen">
