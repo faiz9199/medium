@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import BASE_URL from "../context/apiConfig";
 
 const BlogCard = ({ post }) => {
   const imageUrl = post.imagelink
-    ? `http://localhost:3000/${post.imagelink}`
+    ? `${BASE_URL}/${post.imagelink}`
     : "https://via.placeholder.com/150";
 
   // Function to truncate the content to 20 words

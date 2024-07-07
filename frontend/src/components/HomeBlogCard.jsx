@@ -1,7 +1,9 @@
+import BASE_URL from "../context/apiConfig";
 
-
-const HomeBlogCard = ({post}) => {
-  const imageUrl = post.imagelink ? `http://localhost:3000/${post.imagelink}`:"https://via.placeholder.com/150"
+const HomeBlogCard = ({ post }) => {
+  const imageUrl = post.imagelink
+    ? `${BASE_URL}/${post.imagelink}`
+    : "https://via.placeholder.com/150";
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <img src={imageUrl} alt="image" className="w-full h-48 object-cover" />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import BASE_URL from "../context/apiConfig";
 import axios from "axios";
 
 const ArticleDetails = () => {
@@ -10,7 +11,7 @@ const ArticleDetails = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/post/${id}`);
+        const response = await axios.get(`${BASE_URL}/post/${id}`);
         setPost(response.data.post);
       } catch (error) {
         console.error("Error fetching post details", error);
@@ -23,7 +24,9 @@ const ArticleDetails = () => {
   if (!post) return <div>Loading...</div>;
 
   // Construct the full URL for the image
-  const imageUrl = post.imagelink ? `http://localhost:3000/${post.imagelink}` : 'https://via.placeholder.com/150';
+  const imageUrl = post.imagelink
+    ? `http://localhost:3000/${post.imagelink}`
+    : "https://via.placeholder.com/150";
 
   return (
     <div className="mt-20 flex justify-center">
@@ -32,7 +35,7 @@ const ArticleDetails = () => {
           <div className="flex flex-col gap-4 w-full">
             <div className="flex gap-4 items-center">
               <div className="bg-slate-300 w-12 h-12 flex items-center justify-center rounded-full text-2xl">
-              {post.authorName.charAt(0).toUpperCase()}
+                {post.authorName.charAt(0).toUpperCase()}
               </div>
               <div className="flex flex-col">
                 <p className="text-xl font-bold">{post.authorName}</p>
@@ -53,7 +56,7 @@ const ArticleDetails = () => {
               src={imageUrl}
               alt="Post"
               onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/150';
+                e.target.src = "https://via.placeholder.com/150";
               }}
               className="w-32 h-32 sm:w-48 sm:h-48 md:w-96 md:h-64 object-cover rounded-lg"
             />
